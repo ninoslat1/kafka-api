@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    ports:
+      - 2181:2181
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    ports:
+      - 9092:9092
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  producer:
+    build: ./producer
+    ports:
+      - "${PRODUCER_PORT}:3016"
+      - "${EXPRESS_PORT}:3014"
+    depends_on:
+      - kafka
+    env_file:
+      - .env
+
+  consumer:
+    build: ./consumer
+    ports:
+      - "${CONSUMER_PORT}:3015"
+    depends_on:
+      - kafka
+    env_file:
+      - .env
