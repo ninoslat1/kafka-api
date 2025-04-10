@@ -24,6 +24,7 @@ services:
     ports:
       - "${PRODUCER_PORT}:3016"
       - "${EXPRESS_PORT}:3014"
+    stop_signal: SIGINT
     depends_on:
       - kafka
     env_file:

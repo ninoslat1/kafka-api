@@ -4,7 +4,6 @@ import {Kafka} from 'kafkajs'
 import dotenv from 'dotenv'
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-// import process from NodeJS.Process
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
