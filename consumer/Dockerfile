@@ -3,4 +3,4 @@ WORKDIR /app
 COPY . .
 RUN npm install
 EXPOSE 3015
-CMD ["node", "consumer.js"]
+CMD ["node", "index.js"]
